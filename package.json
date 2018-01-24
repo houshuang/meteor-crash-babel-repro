@@ -1,0 +1,16 @@
+{
+  "name": "f",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.38",
+    "babel-runtime": "^6.26.0",
+    "meteor-node-stubs": "^0.3.2",
+    "mobx": "^3.4.1"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-optional-chaining": "^7.0.0-beta.3"
+  }
+}
