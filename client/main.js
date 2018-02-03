@@ -1,22 +1,21 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { render } from 'react-dom';
+import Loadable from 'react-loadable';
+import path from 'path';
 
-import './main.html';
+Meteor.startup(() => {
+  const TeacherLoadable = Loadable({
+    loader: () => import('../imports/a.js'),
+    loading: () => 'Loading...',
+    serverSideRequirePath: path.resolve(__dirname, './TeacherContainer')
+  });
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
-});
-
-Template.hello.helpers({
-  counter() {
-    return Template?.instance().counter.get();
-  }
-});
-
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  }
+  render(
+    <div>
+      <h1>Hi</h1>
+      <TeacherLoadable />
+    </div>,
+    document.getElementById('render-target')
+  );
 });
