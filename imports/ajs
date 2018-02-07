@@ -1,0 +1,40 @@
+import React from 'react';
+import { action, observable, computed, isObservable } from 'mobx';
+import { observer } from 'mobx-react';
+
+class A {
+  @observable x;
+  constructor() {
+    this.x = '';
+  }
+  @computed
+  get f() {
+    console.log('compute');
+    return this.x + 'arb';
+  }
+  @action
+  setF(f) {
+    console.log('setf inside', f);
+    this.x = f;
+    console.log(this.x);
+  }
+}
+const c = new A();
+console.log(isObservable(c), isObservable(c, 'x'));
+export default observer(() => (
+  <React.Fragment>
+    <h1>{c.f}</h1>
+    <a
+      onClick={e => {
+        e.preventDefault();
+        c.setF('john');
+        console.log('setf result', c.f);
+        console.log(isObservable(c), isObservable(c, 'x'));
+      }}
+    >
+      Hi
+    </a>
+  </React.Fragment>
+));
+c.setF('peter');
+
